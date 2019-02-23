@@ -47,8 +47,7 @@ namespace Baranov01sharp.Model
         }
         public int CalculateAge()
         {
-            if (UserBirthdayDay == -1)
-                return "Error Code -1";
+        
             if (DateTime.Now.Month < UserBirthdayMonth || DateTime.Now.Month == UserBirthdayMonth && DateTime.Now.Day < UserBirthdayDay )
                 return DateTime.Now.Year - UserBirthdayYear - 1;
             return DateTime.Now.Year - UserBirthdayYear;
@@ -62,6 +61,12 @@ namespace Baranov01sharp.Model
             }
         }
 
+        public String CalculateSimpleGreatingn()
+        {
+            if (CheckBirthDay())
+                return " кр4, з ДР!";
+            return "";
+        }
         public String CalculateSimpleSign()
         {
             if (UserBirthdayDay == -1)
@@ -98,37 +103,40 @@ namespace Baranov01sharp.Model
 
         public String CalculateChinaSign()
         {
-            if (UserBirthdayDay == -1)
-                return "Error Code -1";
+          
+               
             int sign = UserBirthdayYear % 12;
 
             switch (sign)
             {
                 case 0:
-                    break;
+                    return "Год Обезьяны";
+                  
                 case 1:
-                    break;
+                    return "Год Петуха";
                 case 2:
-                    break;
+                    return "Год Собаки";
                 case 3:
-                    break;
-                case 0:
-                    break;
-                case 0:
-                    break;
-                case 0:
-                    break;
-                case 0:
-                    break;
-                case 0:
-                    break;
-                case 0:
-                    break;
-                case 0:
-                    break;
+                    return "Год Свинні";
+                case 4:
+                    return "Год Криси";
+                case 5:
+                    return "Год Бика";
+                case 6:
+                    return "Год Тигра";
+                case 7:
+                    return "Год Кролика";
+                case 8:
+                    return "Год Дракона";
+                case 9:
+                    return "Год Змії";
+                case 10:
+                    return "Год Коня";
+                case 11:
+                    return "Год Кози";
 
             }
-
+            return "";
 
 
         }
@@ -137,6 +145,13 @@ namespace Baranov01sharp.Model
 
             return UserBirthdayDay == DateTime.Now.Day && UserBirthdayMonth == DateTime.Now.Month;
         }
+
+        public bool Avalible()
+        {
+            return !(User.Instance.Age < 0 || User.Instance.Age > 135);
+
+        }
+
         public int UserBirthdayDay { get => _userBirthdayDay; set => _userBirthdayDay = value; }
         public int UserBirthdayMonth { get => _userBirthdayMonth; set => _userBirthdayMonth = value; }
         public int UserBirthdayYear { get => _userBirthdayYear; set => _userBirthdayYear = value; }

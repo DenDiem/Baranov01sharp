@@ -11,18 +11,18 @@
         <Label Content="Оберіть дату народження" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.243,-0.867" Width="226"/>
         <TextBlock x:Name="textBlock" Margin="43,60,272,29.6">
                 <TextBlock TextWrapping="Wrap" Text="Вік: "/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Age}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding AgeProp}"/>
                 <TextBlock TextWrapping="Wrap" Text="{Binding Greeting}"/>
                 <LineBreak/>
                 <TextBlock TextWrapping="Wrap" Text="Західний зодіак: "/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Age}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding SimpleSign}"/>
                 <LineBreak/>
                 <TextBlock TextWrapping="Wrap" Text="Китайський зодіак: "/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Age}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding ChinaSign}"/>
                 <LineBreak/>
         </TextBlock>
 
-        <Button Content="Button" HorizontalAlignment="Left" Margin="468,141,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SignInCommand}"/>
+        <Button Content="current date" HorizontalAlignment="Left" Margin="468,141,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CurrentTimeCommand}"/>
 
     </Grid>
 </Window>

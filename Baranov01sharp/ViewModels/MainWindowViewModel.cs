@@ -18,12 +18,13 @@ namespace Baranov01sharp.ViewModel
     {
         private DateTime? _dateTimeProp;
 
+        private String _greating, _simpleSign, _chinaSign;
 
-        private ICommand _signInCommand;
-        private int _age;
+        private ICommand _currentTime;
+        private String _age;
 
-        public ICommand SignInCommand =>
-            _signInCommand ?? (_signInCommand = new RelayCommand<object>(o => { SignIn(); }));
+        public ICommand CurrentTimeCommand =>
+            _currentTime ?? (_currentTime = new RelayCommand<object>(o => { CurrentTime(); }));
 
         public DateTime? DateTimeProp
         {
@@ -33,7 +34,7 @@ namespace Baranov01sharp.ViewModel
 
 
                 User.Instance.InitUser(value.Value.Day, value.Value.Month, value.Value.Year);
-                AgeInit();
+                InitFullStack();
                 _dateTimeProp = value;
                 OnPropertyChanged();
             }
@@ -41,29 +42,53 @@ namespace Baranov01sharp.ViewModel
 
         public String Greeting
         {
+            get { return _greating; }
+            set
+            {
+                
+                _greating = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        public String SimpleSign
+        {
+            get { return _simpleSign; }
+            set
+            {
+               
+                _simpleSign = value;
+                OnPropertyChanged();
+            }
+        }
+        public String ChinaSign
+        {
+            get { return _chinaSign; }
+            set
+            {
+                _chinaSign = value;
+                OnPropertyChanged();
+            }
+        }
+        async void InitFullStack()
+        {
+             if (!User.Instance.Avalible())
+                {
+                    ErrorNotAvalibleAge();
+                    return;
+                }
+            await Task.Run(() => AgeProp = User.Instance.Age.ToString());
+            await Task.Run(() => ChinaSign = User.Instance.CalculateChinaSign());
+            await Task.Run(() => SimpleSign = User.Instance.CalculateSimpleSign());
+            await Task.Run(() => Greeting = User.Instance.CalculateSimpleGreatingn());
+        }
+      
+        public String AgeProp
+        {
             get
             {
                
-                if(User.Instance.CheckBirthDay())
-                    return "З др кр4";
-                return "";
-            }
-        }
-        async void AgeInit()
-        {
-            await Task.Run(() => AgeProp = User.Instance.Age);
-        }
-      
-        public int AgeProp
-        {
-            get
-            {
-                if (_age < 0 || _age > 135)
-                {
-                 
-                    ErrorNotAvalibleAge();
-                    return -1;
-                }
                 return _age;
             }
             set
@@ -74,16 +99,16 @@ namespace Baranov01sharp.ViewModel
         }
        
        
-        private async void SignIn()
+        private async void CurrentTime()
         {
-
+            //for example
             await Task.Run(() => Thread.Sleep(1000));
 
-            MessageBox.Show("User sign in succesfully  " + User.Instance.Age);
+            MessageBox.Show(DateTime.Now.ToString());
         }
         private async void ErrorNotAvalibleAge()
         {
-
+            //for example
             await Task.Run(() => Thread.Sleep(1000));
 
             MessageBox.Show("please enter right birthday ");
